@@ -27,13 +27,11 @@ String getTemptureStr(float tempture)
 
 String getCounterStr(int counter)
 {
-  char numStr[4];
+  char numStr[3];
 
-  if(counter == 0)
-    sprintf(numStr, "%2d", counter);
-  else
-    sprintf(numStr, "%02d", counter);
-  
+  sprintf(numStr, "%02d", counter);
+  numStr[2] = '\0';
+
   String retStr = String("") + numStr;
   return retStr;
 }
