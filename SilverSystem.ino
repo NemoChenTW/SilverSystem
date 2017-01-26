@@ -100,6 +100,8 @@ void loop() {
   Serial.println(getTemptureStr(t));
   lcd.setCursor(10, 0); // 設定游標位置在第一行第10位
   lcd.print(t); 
+
+  delay(300);
   
   if (t <= LOWTEMP)
   {
