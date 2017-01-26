@@ -8,7 +8,7 @@ DHT dht(DHTPIN, DHT22);
 // I2C LCD 設定 
 LiquidCrystal_I2C lcd(0x3F, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);  // 設定 LCD I2C 位址
 
-char temptureHeaderString[11] = "Cur: ";
+char temptureHeaderString[6] = "Cur: ";
 int relay1 = 4; //設定繼電器1為第4孔
 
 #define LOWTEMP 23.5
