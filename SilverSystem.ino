@@ -98,14 +98,14 @@ void loop() {
   
   if (t <= LOWTEMP)
   {
-    digitalWrite(relay1, HIGH);          //繼電器1開關導通
-    Serial.println("Relay Open");
-    lcd.setCursor(0, 0); // 設定游標位置在第一行第0位
-    lcd.print("ON ");
-
     if(isRelayOpen == false)
     {
+      digitalWrite(relay1, HIGH);          //繼電器1開關導通
       isRelayOpen = true;
+      
+      Serial.println("Relay Open");
+      lcd.setCursor(0, 0); // 設定游標位置在第一行第0位
+      lcd.print("ON ");
       
       RelayOpenCounter++;      
       printCounter();
@@ -113,14 +113,14 @@ void loop() {
   }
   else if (t > HIGHTEMP)
   {
-    digitalWrite(relay1, LOW);          //繼電器1開關斷開
-    Serial.println("Relay Off");
-    lcd.setCursor(0, 0); // 設定游標位置在第一行第0位
-    lcd.print("OFF");
-
     if(isRelayOpen == true)
     {
+      digitalWrite(relay1, LOW);          //繼電器1開關斷開
       isRelayOpen = false;
+      
+      Serial.println("Relay Off");
+      lcd.setCursor(0, 0); // 設定游標位置在第一行第0位
+      lcd.print("OFF");
     }
   }
 }
