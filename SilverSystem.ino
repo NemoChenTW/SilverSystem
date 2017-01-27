@@ -8,8 +8,7 @@ DHT dht(DHTPIN, DHT22);
 // I2C LCD 設定 
 LiquidCrystal_I2C lcd(0x3F, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);  // 設定 LCD I2C 位址
 
-//char temptureHeaderString[6] = "Cur: ";
-const char temptureHeaderString[] PROGMEM = {"Cur: "};
+const char CurTemptureMessage[] PROGMEM = {"Cur: "};
 const char HelloMessage[] PROGMEM = {"Silver System!"};
 const char SerialTitleMessage[] PROGMEM = {"Humidity and temperature\n\n"};
 const char DHTErrorMessage[] PROGMEM = {"Failed to read from DHT sensor!"};
@@ -29,7 +28,7 @@ float readTempt = 0.0;
 
 String getTemptureStr(float tempture)
 {
-  String retStr = String("") + temptureHeaderString + tempture;
+  String retStr = String("") + CurTemptureMessage + tempture;
   return retStr;
 }
 
@@ -68,7 +67,7 @@ void setup() {
   lcd.clear();
 
   lcd.setCursor(5, 0); // 設定游標位置在第一行第5位
-  lcd.print(temptureHeaderString);
+  lcd.print(CurTemptureMessage);
   
   lcd.setCursor(3, 1); // 設定游標位置在第二行第3位
   String tempSetStr = String("") + LOWTEMP + " ~ " + HIGHTEMP;
