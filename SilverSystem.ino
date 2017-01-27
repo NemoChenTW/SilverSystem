@@ -32,11 +32,13 @@ uint8_t i = 0; // for counter
 
 void printPGM_lcd(const char *data)
 {
+  delay(100);
   int len = strlen_P(data);
 
   for(i = 0; i < len; i++)
   {
     chBuffer = pgm_read_byte_near(data + i);
+    delay(10);
     lcd.print(chBuffer);
   }
 }
