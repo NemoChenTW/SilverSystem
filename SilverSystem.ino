@@ -24,6 +24,7 @@ int relay1 = 4; //設定繼電器1為第4孔
 // Relay Status
 bool isRelayOpen = false;
 uint8_t  RelayOpenCounter = 0;
+float readTempt = 0.0;
 
 
 String getTemptureStr(float tempture)
@@ -88,22 +89,22 @@ void loop() {
   delay(2000);
 
   // Read temperature as Celsius (the default)
-  float t = dht.readTemperature();
+  readTempt = dht.readTemperature();
 
   // Check if any reads failed and exit early (to try again).
-  if (isnan(t)) {
+  if (isnan(readTempt)) {
     Serial.println(DHTErrorMessage);
     return;
   }
 
   //  String
-  Serial.println(getTemptureStr(t));
+  Serial.println(getTemptureStr(readTempt));
   lcd.setCursor(10, 0); // 設定游標位置在第一行第10位
-  lcd.print(t); 
+  lcd.print(readTempt); 
 
   delay(300);
   
-  if (t <= LOWTEMP)
+  if (readTempt <= LOWTEMP)
   {
     if(isRelayOpen == false)
     {
@@ -118,7 +119,7 @@ void loop() {
       printCounter();
     }
   }
-  else if (t > HIGHTEMP)
+  else if (readTempt > HIGHTEMP)
   {
     if(isRelayOpen == true)
     {
