@@ -46,16 +46,10 @@ String getTemptureStr(float tempture)
   return retStr;
 }
 
-String getCounterStr(int counter)
-{
-  String retStr = String(counter);
-  return retStr;
-}
-
 void printCounter()
 {
   lcd.setCursor(0, 1); // 設定游標位置在第二行第0位
-  lcd.print(getCounterStr(RelayOpenCounter));
+  lcd.print(RelayOpenCounter);
 }
 
 void printLCDTemptureSetting()
