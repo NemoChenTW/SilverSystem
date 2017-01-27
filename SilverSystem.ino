@@ -103,7 +103,7 @@ void setup() {
   digitalWrite(relay1, LOW);          //繼電器1開關斷開
   
   #if defined(SERIAL_DEBUG_OUTPUT)
-  printPGM_serial("Relay Off");
+  printPGM_serial(RelayCloseMessage);
   #endif
 
   lcd.setCursor(0, 0); // 設定游標位置在第一行第0位
