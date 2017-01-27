@@ -154,7 +154,8 @@ void loop() {
 
       lcd.setCursor(0, 0); // 設定游標位置在第一行第0位
       lcd.print("ON ");
-      
+
+      delay(200);
       RelayOpenCounter++;      
       printCounter();
     }
