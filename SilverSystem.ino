@@ -65,7 +65,11 @@ void setup() {
   //   DHT22
   Serial.begin(9600);
   delay(300);             //Let system settle
+  
+  #if defined(SERIAL_DEBUG_OUTPUT)
   Serial.println(SerialTitleMessage);
+  #endif
+
   delay(700);             //Wait rest of 1000ms recommended delay before
   //accessing sensor
   dht.begin();
@@ -85,7 +89,11 @@ void setup() {
   // 繼電器預設關閉
   isRelayOpen = false;
   digitalWrite(relay1, LOW);          //繼電器1開關斷開
+  
+  #if defined(SERIAL_DEBUG_OUTPUT)
   Serial.println("Relay Off");
+  #endif
+
   lcd.setCursor(0, 0); // 設定游標位置在第一行第0位
   lcd.print("OFF");
 
@@ -101,12 +109,20 @@ void loop() {
 
   // Check if any reads failed and exit early (to try again).
   if (isnan(readTempt)) {
+    
+    #if defined(SERIAL_DEBUG_OUTPUT)
     Serial.println(DHTErrorMessage);
+    #endif
+
     return;
   }
 
   //  String
+  
+  #if defined(SERIAL_DEBUG_OUTPUT)
   Serial.println(readTempt);
+  #endif
+
   lcd.setCursor(10, 0); // 設定游標位置在第一行第10位
   lcd.print(readTempt); 
 
@@ -119,7 +135,11 @@ void loop() {
       digitalWrite(relay1, HIGH);          //繼電器1開關導通
       isRelayOpen = true;
       
+      
+      #if defined(SERIAL_DEBUG_OUTPUT)
       Serial.println(RelayOpenMessage);
+      #endif
+
       lcd.setCursor(0, 0); // 設定游標位置在第一行第0位
       lcd.print("ON ");
       
@@ -134,7 +154,11 @@ void loop() {
       digitalWrite(relay1, LOW);          //繼電器1開關斷開
       isRelayOpen = false;
       
+      
+      #if defined(SERIAL_DEBUG_OUTPUT)
       Serial.println(RelayCloseMessage);
+      #endif
+
       lcd.setCursor(0, 0); // 設定游標位置在第一行第0位
       lcd.print("OFF");
     }
