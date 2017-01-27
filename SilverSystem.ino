@@ -8,7 +8,14 @@ DHT dht(DHTPIN, DHT22);
 // I2C LCD 設定 
 LiquidCrystal_I2C lcd(0x3F, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);  // 設定 LCD I2C 位址
 
-char temptureHeaderString[6] = "Cur: ";
+//char temptureHeaderString[6] = "Cur: ";
+const char temptureHeaderString[] PROGMEM = {"Cur: "};
+const char HelloMessage[] PROGMEM = {"Silver System!"};
+const char SerialTitleMessage[] PROGMEM = {"Humidity and temperature\n\n"};
+const char DHTErrorMessage[] PROGMEM = {"Failed to read from DHT sensor!"};
+const char RelayOpenMessage[] PROGMEM = {"Relay Open"};
+const char RelayCloseMessage[] PROGMEM = {"Relay Close"};
+
 int relay1 = 4; //設定繼電器1為第4孔
 
 #define LOWTEMP 23.5
@@ -42,12 +49,12 @@ void setup() {
   lcd.begin(16, 2);      // 初始化 LCD，一行 16 的字元，共 2 行，預設開啟背光
   lcd.backlight(); // 開啟背光
   lcd.setCursor(0, 0); // 設定游標位置在第一行行首
-  lcd.print("Silver System!");
+  lcd.print(HelloMessage);
   
   //   DHT22
   Serial.begin(9600);
   delay(300);             //Let system settle
-  Serial.println("Humidity and temperature\n\n");
+  Serial.println(SerialTitleMessage);
   delay(700);             //Wait rest of 1000ms recommended delay before
   //accessing sensor
   dht.begin();
@@ -85,7 +92,7 @@ void loop() {
 
   // Check if any reads failed and exit early (to try again).
   if (isnan(t)) {
-    Serial.println("Failed to read from DHT sensor!");
+    Serial.println(DHTErrorMessage);
     return;
   }
 
@@ -103,7 +110,7 @@ void loop() {
       digitalWrite(relay1, HIGH);          //繼電器1開關導通
       isRelayOpen = true;
       
-      Serial.println("Relay Open");
+      Serial.println(RelayOpenMessage);
       lcd.setCursor(0, 0); // 設定游標位置在第一行第0位
       lcd.print("ON ");
       
@@ -118,7 +125,7 @@ void loop() {
       digitalWrite(relay1, LOW);          //繼電器1開關斷開
       isRelayOpen = false;
       
-      Serial.println("Relay Off");
+      Serial.println(RelayCloseMessage);
       lcd.setCursor(0, 0); // 設定游標位置在第一行第0位
       lcd.print("OFF");
     }
