@@ -39,6 +39,18 @@ void printPGM_lcd(const char *data)
   }
 }
 
+void printPGM_serial(const char *data)
+{
+  int len = strlen_P(data);
+
+  for(i = 0; i < len; i++)
+  {
+    chBuffer = pgm_read_byte_near(data + i);
+    Serial.print(chBuffer);
+  }
+  Serial.print("\n");
+}
+
 void printCounter()
 {
   lcd.setCursor(0, 1); // 設定游標位置在第二行第0位
@@ -67,7 +79,7 @@ void setup() {
   delay(300);             //Let system settle
   
   #if defined(SERIAL_DEBUG_OUTPUT)
-  Serial.println(SerialTitleMessage);
+  printPGM_serial(SerialTitleMessage);
   #endif
 
   delay(700);             //Wait rest of 1000ms recommended delay before
@@ -91,7 +103,7 @@ void setup() {
   digitalWrite(relay1, LOW);          //繼電器1開關斷開
   
   #if defined(SERIAL_DEBUG_OUTPUT)
-  Serial.println("Relay Off");
+  printPGM_serial("Relay Off");
   #endif
 
   lcd.setCursor(0, 0); // 設定游標位置在第一行第0位
@@ -111,7 +123,7 @@ void loop() {
   if (isnan(readTempt)) {
     
     #if defined(SERIAL_DEBUG_OUTPUT)
-    Serial.println(DHTErrorMessage);
+    printPGM_serial(DHTErrorMessage);
     #endif
 
     return;
@@ -137,7 +149,7 @@ void loop() {
       
       
       #if defined(SERIAL_DEBUG_OUTPUT)
-      Serial.println(RelayOpenMessage);
+      printPGM_serial(RelayOpenMessage);
       #endif
 
       lcd.setCursor(0, 0); // 設定游標位置在第一行第0位
@@ -156,7 +168,7 @@ void loop() {
       
       
       #if defined(SERIAL_DEBUG_OUTPUT)
-      Serial.println(RelayCloseMessage);
+      printPGM_serial(RelayCloseMessage);
       #endif
 
       lcd.setCursor(0, 0); // 設定游標位置在第一行第0位
