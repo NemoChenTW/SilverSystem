@@ -23,7 +23,7 @@ int relay1 = 4; //設定繼電器1為第4孔
 
 // Relay Status
 bool isRelayOpen = false;
-int  RelayOpenCounter = 0;
+uint8_t  RelayOpenCounter = 0;
 
 
 String getTemptureStr(float tempture)
