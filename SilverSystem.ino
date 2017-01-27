@@ -14,6 +14,7 @@ const char SerialTitleMessage[] PROGMEM = {"Humidity and temperature\n\n"};
 const char DHTErrorMessage[] PROGMEM = {"Failed to read from DHT sensor!"};
 const char RelayOpenMessage[] PROGMEM = {"Relay Open"};
 const char RelayCloseMessage[] PROGMEM = {"Relay Close"};
+const char TemptureSettingMark[] PROGMEM = {" ~ "};
 
 int relay1 = 4; //設定繼電器1為第4孔
 
@@ -44,6 +45,18 @@ void printCounter()
   lcd.print(getCounterStr(RelayOpenCounter));
 }
 
+void printLCDTemptureSetting()
+{
+  lcd.setCursor(3, 1); // 設定游標位置在第二行第4位
+  lcd.print(LOWTEMP);
+  
+  lcd.setCursor(7, 1); // 設定游標位置在第二行第8位
+  lcd.print(TemptureSettingMark);
+
+  lcd.setCursor(10, 1); // 設定游標位置在第二行第11位
+  lcd.print(HIGHTEMP);
+}
+
 void setup() {
   
   lcd.begin(16, 2);      // 初始化 LCD，一行 16 的字元，共 2 行，預設開啟背光
@@ -69,9 +82,7 @@ void setup() {
   lcd.setCursor(5, 0); // 設定游標位置在第一行第5位
   lcd.print(CurTemptureMessage);
   
-  lcd.setCursor(3, 1); // 設定游標位置在第二行第3位
-  String tempSetStr = String("") + LOWTEMP + " ~ " + HIGHTEMP;
-  lcd.print(tempSetStr);
+  printLCDTemptureSetting();
 
   // 繼電器預設關閉
   isRelayOpen = false;
