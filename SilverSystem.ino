@@ -25,6 +25,19 @@ int relay1 = 4; //設定繼電器1為第4孔
 bool isRelayOpen = false;
 uint8_t  RelayOpenCounter = 0;
 float readTempt = 0.0;
+char chBuffer;
+uint8_t i = 0; // for counter
+
+void printPGM_lcd(const char *data)
+{
+  int len = strlen_P(data);
+
+  for(i = 0; i < len; i++)
+  {
+    chBuffer = pgm_read_byte_near(data + i);
+    lcd.print(chBuffer);
+  }
+}
 
 
 String getTemptureStr(float tempture)
@@ -51,7 +64,7 @@ void printLCDTemptureSetting()
   lcd.print(LOWTEMP);
   
   lcd.setCursor(7, 1); // 設定游標位置在第二行第8位
-  lcd.print(TemptureSettingMark);
+  printPGM_lcd(TemptureSettingMark);
 
   lcd.setCursor(10, 1); // 設定游標位置在第二行第11位
   lcd.print(HIGHTEMP);
@@ -62,7 +75,7 @@ void setup() {
   lcd.begin(16, 2);      // 初始化 LCD，一行 16 的字元，共 2 行，預設開啟背光
   lcd.backlight(); // 開啟背光
   lcd.setCursor(0, 0); // 設定游標位置在第一行行首
-  lcd.print(HelloMessage);
+  printPGM_lcd(HelloMessage);
   
   //   DHT22
   Serial.begin(9600);
@@ -80,7 +93,7 @@ void setup() {
   lcd.clear();
 
   lcd.setCursor(5, 0); // 設定游標位置在第一行第5位
-  lcd.print(CurTemptureMessage);
+  printPGM_lcd(CurTemptureMessage);
   
   printLCDTemptureSetting();
 
