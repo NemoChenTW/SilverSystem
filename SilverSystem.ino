@@ -39,13 +39,6 @@ void printPGM_lcd(const char *data)
   }
 }
 
-
-String getTemptureStr(float tempture)
-{
-  String retStr = String("") + CurTemptureMessage + tempture;
-  return retStr;
-}
-
 void printCounter()
 {
   lcd.setCursor(0, 1); // 設定游標位置在第二行第0位
@@ -113,7 +106,7 @@ void loop() {
   }
 
   //  String
-  Serial.println(getTemptureStr(readTempt));
+  Serial.println(readTempt);
   lcd.setCursor(10, 0); // 設定游標位置在第一行第10位
   lcd.print(readTempt); 
 
