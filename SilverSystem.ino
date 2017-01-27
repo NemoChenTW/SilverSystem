@@ -15,6 +15,8 @@ const char DHTErrorMessage[] PROGMEM = {"Failed to read from DHT sensor!"};
 const char RelayOpenMessage[] PROGMEM = {"Relay Open"};
 const char RelayCloseMessage[] PROGMEM = {"Relay Close"};
 const char TemptureSettingMark[] PROGMEM = {" ~ "};
+const char OnMessage[] PROGMEM = {"ON "};
+const char OffMessage[] PROGMEM = {"OFF"};
 
 int relay1 = 4; //設定繼電器1為第4孔
 
@@ -107,7 +109,7 @@ void setup() {
   #endif
 
   lcd.setCursor(0, 0); // 設定游標位置在第一行第0位
-  lcd.print("OFF");
+  printPGM_lcd(OffMessage);
 
   printCounter();
 }
@@ -153,7 +155,7 @@ void loop() {
       #endif
 
       lcd.setCursor(0, 0); // 設定游標位置在第一行第0位
-      lcd.print("ON ");
+      printPGM_lcd(OnMessage);
 
       delay(200);
       RelayOpenCounter++;      
@@ -173,7 +175,7 @@ void loop() {
       #endif
 
       lcd.setCursor(0, 0); // 設定游標位置在第一行第0位
-      lcd.print("OFF");
+      printPGM_lcd(OffMessage);
     }
   }
 }
