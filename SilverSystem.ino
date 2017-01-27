@@ -63,10 +63,8 @@ void printLCDTemptureSetting()
   lcd.setCursor(3, 1); // 設定游標位置在第二行第4位
   lcd.print(LOWTEMP);
   
-  lcd.setCursor(7, 1); // 設定游標位置在第二行第8位
   printPGM_lcd(TemptureSettingMark);
 
-  lcd.setCursor(10, 1); // 設定游標位置在第二行第11位
   lcd.print(HIGHTEMP);
 }
 
